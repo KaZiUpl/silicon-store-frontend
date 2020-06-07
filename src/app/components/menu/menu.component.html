@@ -1,0 +1,55 @@
+<div id="start"></div>
+<nav
+  id="main-nav"
+  class="navbar navbar-expand-lg navbar-light fixed-top"
+>
+  <div class="container-fluid col-12 col-md-12 col-lg-11 col-xl-10">
+    <a href="/" class="navbar-brand col-1">
+      <img src="assets/img/logo.png" alt="" />
+    </a>
+    <button
+      class="navbar-toggler ml-auto"
+      type="button"
+      data-toggle="collapse"
+      data-target="#main-navbar"
+      (click)="navbarOpen = !navbarOpen"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse no-select col-11 tall-menu" id="main-navbar" [ngClass]="{'show': navbarOpen}">
+      <ul class="navbar-nav ml-auto">
+        
+        <!-- @if(isset(Auth::user()->email)) -->
+        <li class="nav-item">
+          <div class="nav-link sm-caps">
+            <a href="">
+              Koszyk
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <div class="nav-link sm-caps">
+            <a href="">
+              Profil
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <div class="nav-link sm-caps">
+            <a href="">Wyloguj</a>
+          </div>
+        </li>
+        <!-- @else -->
+        <li class="nav-item">
+          <div class="nav-link sm-caps">
+            <a href="">Zaloguj się</a>
+          </div>
+        </li>
+        <!-- @endif -->
+      </ul>
+    </div>
+  </div>
+  <!-- koniec containera -->
+</nav>
+<!-- koniec nawigacji -->
