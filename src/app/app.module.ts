@@ -8,6 +8,8 @@ import { DefaultModule } from './layouts/default/default.module';
 import { UserService } from './services/user.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { IndexModule } from './pages/index/index.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +17,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     DefaultModule,
+    IndexModule,
   ],
   providers: [
     UserService,
