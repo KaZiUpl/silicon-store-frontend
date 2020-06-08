@@ -10,6 +10,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { IndexModule } from './pages/index/index.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ItemsService } from './services/items.service';
+import { CategoriesService } from './services/categories.service';
+import { AuthModule } from './pages/auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,9 +23,12 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     DefaultModule,
     IndexModule,
+    AuthModule
   ],
   providers: [
     UserService,
+    ItemsService,
+    CategoriesService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
