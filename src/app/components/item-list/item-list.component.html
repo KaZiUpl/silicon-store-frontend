@@ -1,0 +1,37 @@
+<div id="product_list" class="container-fluid col-12" *ngIf="items && items.length > 0; else noItems">
+        <div class="row item white-box w-100 d-flex"  *ngFor="let item of items">
+            <div class="col-12 col-md-3 d-flex align-items-center justify-content-center">
+                <a href="">
+                    <img src="https://via.placeholder.com/150" class="col-12 product-miniature" alt="photo" />
+                </a>
+            </div>
+            <div class="item-body col-6">
+                <a href="">
+                    <h3 class="card-title">{{ item.name }}</h3>
+                </a>
+                    <table class="table short-specification" [innerHTML]="item.short_specification | safe:'html'">
+
+                    </table>
+            </div>
+            <div class="price-tag col-12 col-lg-3 row">
+                
+                    <form action="">
+                        <input type="submit" class="btn btn-success" value="Add to cart" />
+                    </form>
+                
+                    <button class="btn btn-secondary" disabled>Add to cart</button>
+                    <span style="font-size:0.8rem;">Sign in to buy</span>
+                
+                <span class="price col-12  d-flex justify-content-center">{{ item.price }} zł</span>
+            </div>
+        </div>
+        
+</div>
+<ng-template #noItems>
+    <div id="product_list" class="container-fluid col-12">
+        <h4 class="col-12 text-center">
+            No items here
+        </h4>
+    </div>
+    
+</ng-template>
