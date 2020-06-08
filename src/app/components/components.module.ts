@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MainCategoryMenuComponent } from './main-category-menu/main-category-menu.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { SafePipe } from '../pipes/safe.pipe';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { SafePipe } from '../pipes/safe.pipe';
     ItemListComponent,
     SafePipe
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   exports: [
     MenuComponent,
     FooterComponent,

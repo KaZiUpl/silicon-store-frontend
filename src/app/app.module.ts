@@ -13,12 +13,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ItemsService } from './services/items.service';
 import { CategoriesService } from './services/categories.service';
 import { AuthModule } from './pages/auth/auth.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     BrowserAnimationsModule,
     HttpClientModule,
     DefaultModule,

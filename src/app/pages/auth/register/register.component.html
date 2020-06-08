@@ -1,1 +1,68 @@
-<p>register works!</p>
+<div class="row">
+  <h3 class="col-12 text-center">Sign up</h3>
+  <div class="col-12 text-center">
+    <a [routerLink]="['/auth']" routerLinkActive="router-link-active"
+      >I have an account</a
+    >
+  </div>
+</div>
+<div class="row">
+  <form id="register-form" class="col">
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="Your email address" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Nick</mat-label>
+          <input type="text" matInput placeholder="Your nick" />
+          <mat-hint>It will be displayed above your comments</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            type="{{ isPassVisible ? 'text' : 'password' }}"
+            matInput
+            placeholder="Try to make it hard"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="isPassVisible = !isPassVisible"
+          >
+            <mat-icon>{{
+              isPassVisible ? "visibility" : "visibility_off"
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>Confirm password</mat-label>
+          <input
+            type="{{ isPassVisible ? 'text' : 'password' }}"
+            matInput
+            placeholder="Same as above"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-right">
+        <button mat-raised-button color="primary">Sign me up</button>
+      </div>
+    </div>
+  </form>
+</div>

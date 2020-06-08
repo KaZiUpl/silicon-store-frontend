@@ -1,7 +1,6 @@
 /*--------------------------------
   OVERALL SETTINGS
   --------------------------------*/
-
   html {
     margin: 0;
     padding: 0;
@@ -514,12 +513,9 @@
     LOGIN / REGISTER FORM
     --------------------------------*/
   
-  #login-form {
-    box-sizing: border-box;
-    padding: 10px;
-  
-    .row {
-      margin-bottom: 10px;
+  #login-form, #register-form {
+    mat-form-field {
+      width: 100%;
     }
   }
   

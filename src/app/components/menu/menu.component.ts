@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
   navbarOpen: boolean = false;
+  isAuth: boolean = false;
 
-  constructor() {}
+  constructor(private userService: UserService) {
+    this.isAuth = userService.isAuthenticated();
+  }
 
   ngOnInit(): void {}
 }
