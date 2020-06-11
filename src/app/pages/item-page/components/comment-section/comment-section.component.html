@@ -34,8 +34,8 @@
       <div class="row comment-frame white-box" *ngFor="let comment of comments">
         <h4 class="comment-title">
           {{comment.author}}
-          <span class="comment-date">
-            {{comment.date}}
+          <span class="comment-date ml-1">
+            {{comment.updated_at | date:'d.MM.y'}}
           </span>
         </h4>
         <div class="row col-12 comment-text text-justify">
