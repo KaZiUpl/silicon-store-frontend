@@ -1,0 +1,17 @@
+<ol class="col-12 breadcrumb">
+  <a
+    [routerLink]="['/']"
+    routerLinkActive="router-link-active"
+    class="breadcrumb-item"
+  >
+    Silicon Store
+  </a>
+  <a
+    [routerLink]="['/category/', category.id]"
+    routerLinkActive="router-link-active"
+    class="breadcrumb-item"
+    *ngFor="let category of breadcrumbs"
+  >
+    {{ category.name }}
+  </a>
+</ol>
