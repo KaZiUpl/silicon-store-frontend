@@ -14,6 +14,7 @@ import { ItemsService } from './services/items.service';
 import { CategoriesService } from './services/categories.service';
 import { AuthModule } from './pages/auth/auth.module';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { RouterModule } from '@angular/router';
     UserService,
     ItemsService,
     CategoriesService,
+    AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
