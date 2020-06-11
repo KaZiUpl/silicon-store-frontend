@@ -28,25 +28,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const user = this.userService.getLocalUser();
 
-    if (user === null) {
-      return next.handle(request);
-    }
+    
 
-    if (this.isRefreshing) {
-      return this.refreshTokenSubject.pipe(
-        filter(result => result !== null),
-        take(1),
-        switchMap(() => next.handle(this.addHeaders(request))));
+    if(user) {
+      const cloned = this.addHeaders(request);
+      
+      return next.handle(this.addHeaders(cloned));
     }
-    
-    //check for expired access token
-    
-    
 
     return next.handle(request);
   }
 
   addHeaders(req: HttpRequest<any>) {
+    
     return req.clone({
       headers: req.headers.set(
         'Authorization',

@@ -29,10 +29,10 @@ export class UserService {
     const user = this.getLocalUser();
 
     const body = {
-      refresh_token: user.token,
+      token: user.token,
     };
 
-    return this.httpClient.post(environment.apiUrl + 'users/signout', body);
+    return this.httpClient.post(environment.apiUrl + 'users/logout', body);
   }
 
   refreshToken(): Observable<any> {
