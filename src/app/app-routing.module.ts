@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
 import { IndexComponent } from './pages/index/index.component';
+import { AuthGuard } from './guards/auth.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -23,7 +25,20 @@ const routes: Routes = [
         path: 'auth',
         loadChildren: () =>
           import('./pages/auth/auth.module').then((m) => m.AuthModule),
-        
+      },
+      {
+        path: 'profile',
+        canActivate: [AuthGuard],
+        component: ProfileComponent,
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./pages/profile/profile.module').then(
+                (m) => m.ProfileModule
+              ),
+          },
+        ],
       },
     ],
   },
