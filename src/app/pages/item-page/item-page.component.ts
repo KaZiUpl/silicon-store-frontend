@@ -21,9 +21,9 @@ export class ItemPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    // get item's id from route
+    //get item's id from route
     this.item.id = route.snapshot.params.id;
-    // get item's info
+    //get item's info
     this.itemService.getItem(this.item.id).subscribe(
       (response: ItemOutput) => {
         this.item = response;
@@ -32,7 +32,7 @@ export class ItemPageComponent implements OnInit {
         router.navigate(['/index']);
       }
     );
-    // get item's breadcrumbs
+    //get item's breadcrumbs
     this.itemService.getItemBreadcrumbs(this.item.id).subscribe(
       (response: CategoryOutput[]) => {
         this.breadcrumbs = response;

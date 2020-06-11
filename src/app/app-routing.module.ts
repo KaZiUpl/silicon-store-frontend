@@ -23,8 +23,11 @@ const routes: Routes = [
       {
         path: 'item/:id',
         component: ItemPageComponent,
-        loadChildren: () => import('./pages/item-page/item-page.module').then(m => m.ItemPageModule)
-      }
+        loadChildren: () =>
+          import('./pages/item-page/item-page.module').then(
+            (m) => m.ItemPageModule
+          ),
+      },
     ],
   },
 ];

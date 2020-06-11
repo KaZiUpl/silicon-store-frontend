@@ -33,20 +33,23 @@
       </div>
       <div class="row comment-frame white-box" *ngFor="let comment of comments">
         <h4 class="comment-title">
-          {{comment.author}}
+          {{ comment.author }}
           <span class="comment-date ml-1">
-            {{comment.updated_at | date:'d.MM.y'}}
+            {{ comment.updated_at | date: "d.MM.y" }}
           </span>
         </h4>
         <div class="row col-12 comment-text text-justify">
           <div class="col-12">
-            {{comment.text}}
+            {{ comment.text }}
           </div>
         </div>
       </div>
-      <div *ngIf="comments == undefined || comments.length == 0" class="row my-5">
+      <div
+        *ngIf="comments == undefined || comments.length == 0"
+        class="row my-5"
+      >
         <div class="col text-center">
-            Noone commented on this item, you can be the first one.
+          Noone commented on this item, you can be the first one.
         </div>
       </div>
     </div>
