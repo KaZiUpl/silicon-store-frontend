@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateUserInput, TokenOutput } from '../models/user.model';
-import { Observable } from 'rxjs';
+import { CreateUserInput, TokenOutput, UserOutput } from '../models/user.model';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  public AuthenticatedStatus: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticated());
+
   constructor(private httpClient: HttpClient) {}
 
   register(userInput: CreateUserInput): Observable<any> {
@@ -29,20 +31,15 @@ export class UserService {
     const user = this.getLocalUser();
 
     const body = {
-      token: user.token,
+      api_key: user.api_key
     };
 
     return this.httpClient.post(environment.apiUrl + 'users/logout', body);
   }
 
-  refreshToken(): Observable<any> {
-    const user = this.getLocalUser();
-    const body = {
-      refresh_token: user.token,
-    };
-    return this.httpClient.post<TokenOutput>(
-      environment.apiUrl + 'token/refresh',
-      body
+  getProfile(): Observable<UserOutput> {
+    return this.httpClient.get<UserOutput>(
+      environment.apiUrl + 'users/profile'
     );
   }
 
@@ -78,11 +75,11 @@ export class UserService {
     return user !== null;
   }
 
-  getToken(): string {
+  getApiKey(): string {
     const user = this.getLocalUser();
 
     if (user) {
-      return user.token;
+      return user.api_key;
     }
 
     return null;

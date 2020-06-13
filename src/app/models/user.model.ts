@@ -15,8 +15,7 @@ export enum UserRole {
 }
 
 export class TokenOutput {
-    token: string;
-    refresh_token: string;
+    api_key: string;
     id: number;
     email: string;
     role: UserRole;

@@ -5,15 +5,12 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-import {filter, switchMap, take} from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  isRefreshing = false;
-  refreshTokenSubject = new BehaviorSubject<string>(null);
   private userService: UserService;
 
   constructor(private injector: Injector, private router: Router) {}
@@ -25,26 +22,20 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!this.userService) {
       this.userService = this.injector.get(UserService);
     }
-
     const user = this.userService.getLocalUser();
 
-    
-
-    if(user) {
-      const cloned = this.addHeaders(request);
-      
-      return next.handle(this.addHeaders(cloned));
+    if (user === null) {
+      return next.handle(request);
+    } else {
+      return next.handle(this.addHeaders(request));
     }
-
-    return next.handle(request);
   }
 
-  addHeaders(req: HttpRequest<any>) {
-    
-    return req.clone({
-      headers: req.headers.set(
+  addHeaders(request: HttpRequest<any>) {
+    return request.clone({
+      headers: request.headers.set(
         'Authorization',
-        'Bearer ' + this.userService.getToken()
+        'Bearer ' + this.userService.getApiKey()
       ),
     });
   }

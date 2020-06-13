@@ -4,6 +4,7 @@ import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { DisplayProfileComponent } from './components/display-profile/display-profile.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 
 
@@ -11,7 +12,8 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
   declarations: [ProfileComponent, DisplayProfileComponent, EditProfileComponent],
   imports: [
     CommonModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    ComponentsModule
   ]
 })
 export class ProfileModule { }

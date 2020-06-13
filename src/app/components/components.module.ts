@@ -6,6 +6,7 @@ import { MainCategoryMenuComponent } from './main-category-menu/main-category-me
 import { ItemListComponent } from './item-list/item-list.component';
 import { SafePipe } from '../pipes/safe.pipe';
 import { RouterModule } from '@angular/router';
+import { OrderNumberPipe } from '../pipes/order-number.pipe';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     MainCategoryMenuComponent,
     ItemListComponent,
-    SafePipe
+    SafePipe,
+    OrderNumberPipe
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -21,7 +23,8 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     MainCategoryMenuComponent,
     ItemListComponent,
-    SafePipe
+    SafePipe,
+    OrderNumberPipe
   ],
 })
 export class ComponentsModule {}

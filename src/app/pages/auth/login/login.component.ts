@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
             response,
             this.loginForm.value.remember
           );
+          this.userService.AuthenticatedStatus.next(true);
           this.router.navigate(['/index']);
         },
         (error: HttpErrorResponse) => {

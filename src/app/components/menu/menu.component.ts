@@ -13,7 +13,13 @@ export class MenuComponent implements OnInit {
   isAuth: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {
-    this.isAuth = userService.isAuthenticated();
+
+    //subscribe to auth status to change menu
+    userService.AuthenticatedStatus.subscribe(
+      (data: any) => {
+        this.isAuth = data;
+      }
+    );
   }
 
   ngOnInit(): void {}
@@ -24,7 +30,10 @@ export class MenuComponent implements OnInit {
       this.userService.logout().subscribe(
         (response: any) => {
           this.userService.removeLocalUser();
-          this.isAuth = this.userService.isAuthenticated();
+
+          this.userService.AuthenticatedStatus.next(false);
+          //close menu and change menu links
+          this.navbarOpen = false;
           this.router.navigate(['/']);
         },
         (error: HttpErrorResponse) => {
