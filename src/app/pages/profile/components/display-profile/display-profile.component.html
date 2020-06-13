@@ -1,0 +1,49 @@
+<div *ngIf="appLoading == 2">
+  <div class="container-fluid">
+    <h3 class="header">User information</h3>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row">Email address</th>
+          <td>{{ userData.email }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Name</th>
+          <td>{{ userData.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="container-fluid">
+    <h3 class="header">
+      Orders
+    </h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Order number</th>
+          <th scope="col">Date</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="orders.length == 0; else ordersList">
+          <td colspan="3">You don't have any orders</td>
+        </tr>
+        <ng-template #ordersList>
+          <tr *ngFor="let order of orders">
+            <td>
+              <a
+                [routerLink]="['/orders/', order.id]"
+                routerLinkActive="router-link-active"
+                >{{ order.id | orderNumber:10}}</a
+              >
+            </td>
+            <td>{{ order.created_at | date: "d.MM.yyyy HH:mm" }}</td>
+            <td>order value</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>

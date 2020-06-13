@@ -7,6 +7,7 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { SafePipe } from '../pipes/safe.pipe';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { RouterModule } from '@angular/router';
+import { OrderNumberPipe } from '../pipes/order-number.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
     MainCategoryMenuComponent,
     ItemListComponent,
     SafePipe,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    OrderNumberPipe
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -24,7 +26,8 @@ import { RouterModule } from '@angular/router';
     MainCategoryMenuComponent,
     ItemListComponent,
     BreadcrumbsComponent,
-    SafePipe
+    SafePipe,
+    OrderNumberPipe
   ],
 })
 export class ComponentsModule {}
