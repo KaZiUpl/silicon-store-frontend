@@ -34,7 +34,7 @@
           <tr *ngFor="let order of orders">
             <td>
               <a
-                [routerLink]="['/orders/', order.id]"
+                [routerLink]="['orders/', order.id]"
                 routerLinkActive="router-link-active"
                 >{{ order.id | orderNumber:10}}</a
               >
