@@ -5,6 +5,13 @@
 >
   <h3 class="header">Order no. {{ order.id | orderNumber: 10 }}</h3>
   <div class="row">
+      <div class="col-12">
+          <p>
+              Created on {{order.created_at | date:'dd.MM.yyyy, HH:mm'}}
+          </p>
+      </div>
+  </div>
+  <div class="row">
     <div class="col-12">
       <table class="table">
         <thead>
