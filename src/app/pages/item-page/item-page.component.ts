@@ -5,6 +5,7 @@ import { ItemOutput } from 'src/app/models/item.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CategoryOutput } from 'src/app/models/category.model';
 import { CommentOutput } from 'src/app/models/comment.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-item-page',
@@ -15,12 +16,19 @@ export class ItemPageComponent implements OnInit {
   item: ItemOutput = new ItemOutput();
   breadcrumbs: CategoryOutput[];
   comments: CommentOutput[];
+  isAuth: boolean = false;
 
   constructor(
     private itemService: ItemsService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
   ) {
+    userService.AuthenticatedStatus.subscribe(
+      (status: boolean) => {
+        this.isAuth = status;
+      }
+    );
     //get item's id from route
     this.item.id = route.snapshot.params.id;
     //get item's info

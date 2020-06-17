@@ -9,29 +9,60 @@
           <h3>
             Add new comment
           </h3>
-          <span>You have to log in to add a comment</span>
-          <form>
-            <div class="row d-flex justify-content-center">
-              <div class="form-group">
-                <label for="text"></label>
-                <textarea
-                  name="text"
-                  placeholder="Your comment"
-                  class="form-control"
-                  rows="6"
-                  cols="120"
-                  minlength="5"
-                  required
-                ></textarea>
+          <span *ngIf="!isAuth; else addComment"
+            >You have to log in to add a comment</span
+          >
+          <ng-template #addComment>
+            <form (ngSubmit)="onCommentFormSubmit()" [formGroup]="commentForm" #commForm="ngForm">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row">
+                    <mat-form-field
+                      appearance="outline"
+                      class="col-md-8 mx-auto"
+                    >
+                      <mat-label>Your comment</mat-label>
+                      <textarea
+                        matInput
+                        name="comment"
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="5"
+                        formControlName="text"
+                      ></textarea>
+                      <mat-hint align="end"
+                        >{{
+                          commentForm.get("text").value != null
+                            ? commentForm.get("text").value.length
+                            : 0
+                        }}/120</mat-hint
+                      >
+                      <mat-error
+                        *ngIf="commentForm.get('text').hasError('required')"
+                        >This field is required</mat-error
+                      >
+                      <mat-error
+                        *ngIf="commentForm.get('text').hasError('maxlength')"
+                        >Your comment is too long!</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-8 mx-auto text-right">
+                      <button mat-raised-button type="submit" color="primary">
+                        Add comment
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <button type="sumbit" class="btn btn-primary col-9 col-lg-3">
-                Add comment
-              </button>
-            </div>
-          </form>
+            </form>
+          </ng-template>
         </div>
       </div>
-      <div class="row comment-frame white-box" *ngFor="let comment of comments">
+      <div
+        class="row comment-frame white-box mx-auto"
+        *ngFor="let comment of comments"
+      >
         <h4 class="comment-title">
           {{ comment.author }}
           <span class="comment-date ml-1">

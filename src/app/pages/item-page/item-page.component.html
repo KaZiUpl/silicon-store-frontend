@@ -30,16 +30,27 @@
           <div class="row">
             <div class="col">
               <div *ngIf="item.amount > 0; else itemUnavailable">
-                <form>
-                  <input
-                    type="submit"
-                    class="btn btn-success"
-                    value="Dodaj do koszyka"
-                  />
-                </form>
-
-                <button class="btn btn-secondary" disabled>Add to cart</button>
-                <span style="font-size: 0.8rem;">Sign in to add to cart</span>
+                <div *ngIf="isAuth" class="row">
+                  <div class="col-12 text-center">
+                    <input
+                      type="submit"
+                      class="btn btn-success"
+                      value="Dodaj do koszyka"
+                    />
+                  </div>
+                </div>
+                <div class="row" *ngIf="!isAuth">
+                  <div class="col-12 text-center">
+                    <button class="btn btn-secondary" disabled>
+                      Add to cart
+                    </button>
+                  </div>
+                  <div class="col-12 text-center">
+                    <span style="font-size: 0.8rem;"
+                      >Sign in to add to cart</span
+                    >
+                  </div>
+                </div>
               </div>
               <ng-template #itemUnavailable>
                 <div class="row">
@@ -77,4 +88,4 @@
     </div>
   </div>
 </div>
-<app-comment-section [comments]="comments"></app-comment-section>
+<app-comment-section [comments]="comments" [item]="item"></app-comment-section>

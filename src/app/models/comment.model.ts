@@ -7,3 +7,10 @@ export class CommentOutput {
   created_at: Date;
   updated_at: Date;
 }
+
+
+export class CreateCommentInput
+{
+  item_id: number;
+  text: string;
+}

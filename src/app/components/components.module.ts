@@ -17,7 +17,7 @@ import { OrderNumberPipe } from '../pipes/order-number.pipe';
     ItemListComponent,
     SafePipe,
     BreadcrumbsComponent,
-    OrderNumberPipe
+    OrderNumberPipe,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
