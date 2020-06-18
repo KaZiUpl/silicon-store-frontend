@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { AuthModule } from '../../pages/auth/auth.module';
 import { ProfileModule } from '../../pages/profile/profile.module';
+import { CategoryListModule } from '../../pages/category-list/category-list.module';
 
 
 
@@ -15,7 +16,8 @@ import { ProfileModule } from '../../pages/profile/profile.module';
     RouterModule,
     ComponentsModule,
     AuthModule,
-    ProfileModule
+    ProfileModule,
+    CategoryListModule
   ]
 })
 export class DefaultModule { }
