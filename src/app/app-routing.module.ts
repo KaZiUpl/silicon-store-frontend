@@ -5,6 +5,7 @@ import { IndexComponent } from './pages/index/index.component';
 import { ItemPageComponent } from './pages/item-page/item-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,18 @@ const routes: Routes = [
               import('./pages/profile/profile.module').then(
                 (m) => m.ProfileModule
               ),
+          },
+        ],
+      },
+      {
+        path: 'cart',
+        canActivate: [AuthGuard],
+        component: CartComponent,
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./pages/cart/cart.module').then((m) => m.CartModule),
           },
         ],
       },
