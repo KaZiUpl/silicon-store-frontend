@@ -31,12 +31,20 @@
       ></table>
     </div>
     <div class="price-tag col-12 col-lg-3 row">
-      <form action="" *ngIf="isAuth">
-        <input type="submit" class="btn btn-success" value="Add to cart" />
-      </form>
+      <div *ngIf="isAuth">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onAddToCart(item.id)"
+        >
+          Add to cart
+        </button>
+      </div>
       <div class="row" *ngIf="!isAuth">
         <div class="col-12 text-center">
-          <button class="btn btn-secondary" disabled>Add to cart</button>
+          <button mat-raised-button color="primary" disabled>
+            Add to cart
+          </button>
         </div>
         <div class="col-12 text-center">
           <span style="font-size: 0.8rem;">Sign in to buy</span>

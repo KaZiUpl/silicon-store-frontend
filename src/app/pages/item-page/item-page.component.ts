@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CategoryOutput } from 'src/app/models/category.model';
 import { CommentOutput } from 'src/app/models/comment.model';
 import { UserService } from 'src/app/services/user.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-item-page',
@@ -21,6 +22,7 @@ export class ItemPageComponent implements OnInit {
   constructor(
     private itemService: ItemsService,
     private userService: UserService,
+    private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -62,4 +64,19 @@ export class ItemPageComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+
+  onAddToCart() :void {
+    this.cartService.addToCart({item_id: this.item.id}).subscribe(
+      (response: any) => {
+        console.log('added');
+        
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+        
+      }
+    );
+
+  }
 }

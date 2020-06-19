@@ -37,7 +37,7 @@ export class DisplayCartComponent implements OnInit {
     );
   }
 
-  totalOrderValue(): number {
+  totalOrderValue(): string {
     let result: number = 0;
 
     if (this.cartItems.length > 0) {
@@ -45,6 +45,6 @@ export class DisplayCartComponent implements OnInit {
         result += cartItem.amount * cartItem.price;
       });
     }
-    return result;
+    return result.toFixed(2);
   }
 }

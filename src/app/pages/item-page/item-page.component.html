@@ -32,17 +32,15 @@
               <div *ngIf="item.amount > 0; else itemUnavailable">
                 <div *ngIf="isAuth" class="row">
                   <div class="col-12 text-center">
-                    <input
-                      type="submit"
-                      class="btn btn-success"
-                      value="Dodaj do koszyka"
-                    />
+                    <button mat-raised-button color="primary" (click)="onAddToCart()">
+                      Add do cart
+                    </button>
                   </div>
                 </div>
                 <div class="row" *ngIf="!isAuth">
                   <div class="col-12 text-center">
-                    <button class="btn btn-secondary" disabled>
-                      Add to cart
+                    <button mat-raised-button color="primary" disabled>
+                      Add do cart
                     </button>
                   </div>
                   <div class="col-12 text-center">

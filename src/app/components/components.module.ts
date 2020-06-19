@@ -8,6 +8,7 @@ import { SafePipe } from '../pipes/safe.pipe';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { RouterModule } from '@angular/router';
 import { OrderNumberPipe } from '../pipes/order-number.pipe';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { OrderNumberPipe } from '../pipes/order-number.pipe';
     BreadcrumbsComponent,
     OrderNumberPipe,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MaterialModule],
   exports: [
     MenuComponent,
     FooterComponent,
