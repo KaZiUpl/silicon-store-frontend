@@ -7,7 +7,8 @@
     Silicon Store
   </a>
   <a
-    [routerLink]="['/category/', category.id]"
+    [routerLink]="['/items']"
+    [queryParams]="{category: category.id}"
     routerLinkActive="router-link-active"
     class="breadcrumb-item"
     *ngFor="let category of breadcrumbs"

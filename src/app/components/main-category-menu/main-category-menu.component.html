@@ -1,6 +1,6 @@
 <div id="main_category_menu" class="col-12">
   <a
-    href=""
+    [routerLink]="['/items']" [queryParams]="{category: category.id}" routerLinkActive="router-link-active" 
     class="main_category_menu-menu-item"
     *ngFor="let category of categories"
   >

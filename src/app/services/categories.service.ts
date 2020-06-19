@@ -40,7 +40,7 @@ export class CategoriesService {
   getChildCategories(categoryId: number): Observable<CategoryOutput[]> {
     return this.httpClient.get<CategoryOutput[]>(
       environment.apiUrl +
-        'categories' +
+        'categories/' +
         categoryId.toString() +
         '/child-categories'
     );

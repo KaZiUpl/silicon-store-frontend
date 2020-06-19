@@ -1,0 +1,47 @@
+<app-main-category-menu [categories]="mainCategories"></app-main-category-menu>
+<div class="container-fluid" *ngIf="appLoading >= 2">
+  <div class="row">
+    <div class="col-12">
+      <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
+    </div>
+  </div>
+  <div class="row">
+    <div id="category-menu" class="col-md-4 col-xl-3">
+      <nav class="white-box">
+        <div
+          class="container"
+          *ngIf="
+            childCategories && childCategories.length > 0;
+            else leafCategory
+          "
+        >
+          <a
+            [routerLink]="['/items']"
+            [queryParams]="{ category: category.id }"
+            routerLinkActive="router-link-active"
+            *ngFor="let category of childCategories"
+          >
+            {{ category.name }}
+          </a>
+        </div>
+        <ng-template #leafCategory>
+          <div class="container">
+            <a
+              [routerLink]="['/items']"
+              [queryParams]="{
+                category: parentCategory.id
+              }"
+              routerLinkActive="router-link-active"
+            >
+              Back to {{ parentCategory.name }}
+            </a>
+          </div>
+        </ng-template>
+      </nav>
+    </div>
+    <app-item-list
+      class="col-md-8 col-xl-9"
+      [items]="items"
+    ></app-item-list>
+  </div>
+</div>

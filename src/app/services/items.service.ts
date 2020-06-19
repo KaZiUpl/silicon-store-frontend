@@ -12,8 +12,16 @@ import { CategoryOutput } from '../models/category.model';
 export class ItemsService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllItems(): Observable<ItemOutput[]> {
-    return this.httpClient.get<ItemOutput[]>(environment.apiUrl + 'items');
+  getAllItems(categoryId?: number): Observable<ItemOutput[]> {
+    if (categoryId !== undefined) {
+      return this.httpClient.get<ItemOutput[]>(environment.apiUrl + 'items', {
+        params: {
+          category: categoryId.toString(),
+        },
+      });
+    } else {
+      return this.httpClient.get<ItemOutput[]>(environment.apiUrl + 'items');
+    }
   }
 
   getItem(itemId: number): Observable<ItemOutput> {

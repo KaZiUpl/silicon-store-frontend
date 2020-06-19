@@ -6,6 +6,7 @@ import { ItemPageComponent } from './pages/item-page/item-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { CategoryListComponent } from './pages/category-list/category-list.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,14 @@ const routes: Routes = [
         component: IndexComponent,
         loadChildren: () =>
           import('./pages/index/index.module').then((m) => m.IndexModule),
+      },
+      {
+        path: 'items',
+        component: CategoryListComponent,
+        loadChildren: () =>
+          import('./pages/category-list/category-list.module').then(
+            (m) => m.CategoryListModule
+          ),
       },
       {
         path: 'item/:id',
