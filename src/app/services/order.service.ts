@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { OrderOutput } from '../models/order.model';
+import { OrderOutput, CreateOrderInput } from '../models/order.model';
 import { environment } from 'src/environments/environment';
 import { OrderItemOutput } from '../models/orderItem.model';
 
@@ -23,5 +23,9 @@ export class OrderService {
 
   getOrderItems(orderId: number): Observable<OrderItemOutput[]> {
     return this.httpClient.get<OrderItemOutput[]>(environment.apiUrl+'orders/'+orderId+'/items');
+  }
+
+  createOrder(orderInfo: CreateOrderInput): Observable<any> {
+    return this.httpClient.post(environment.apiUrl+'orders', orderInfo);
   }
 }
