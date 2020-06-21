@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItemOutput } from 'src/app/models/cartItem.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { fromEvent, Subject, BehaviorSubject } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  distinctUntilKeyChanged,
+  map,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-display-cart',
@@ -11,6 +18,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class DisplayCartComponent implements OnInit {
   appLoading: number = 0;
   cartItems: CartItemOutput[];
+
+  subject: Subject<CartItemOutput> = new Subject<CartItemOutput>();
 
   constructor(private cartService: CartService) {
     cartService.getCartItems().subscribe(
@@ -24,12 +33,27 @@ export class DisplayCartComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subject
+      .pipe(debounceTime(500), distinctUntilKeyChanged('amount'))
+      .subscribe((data: CartItemOutput) => {
+        this.cartService
+          .modifyCartItem({ item_id: data.item_id, amount: data.amount })
+          .subscribe(
+            (response: any) => {},
+            (error: HttpErrorResponse) => {
+              console.log(error);
+            }
+          );
+      });
+  }
 
-  onDeleteCartItem(itemId: number): void {
-    this.cartService.deleteCartItem(itemId).subscribe(
+  onDeleteCartItem(cartItem: CartItemOutput): void {
+    this.cartService.deleteCartItem(cartItem.item_id).subscribe(
       (response: any) => {
-        //TODO: modify cartItems and deleted deleted cartItem
+        this.cartItems = this.cartItems.filter(
+          (element) => element.item_id != cartItem.item_id
+        );
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -46,5 +70,10 @@ export class DisplayCartComponent implements OnInit {
       });
     }
     return result.toFixed(2);
+  }
+
+  onChange(event: any, cartItem: CartItemOutput) {
+    cartItem.amount = parseInt(event.target.value);
+    this.subject.next({ ...cartItem, amount: parseInt(event.target.value) });
   }
 }

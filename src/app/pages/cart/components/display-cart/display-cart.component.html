@@ -1,8 +1,15 @@
-<div id="cart-list" class="container-fluid col-12 col-lg-10 white-box" *ngIf="appLoading == 1">
+<div
+  id="cart-list"
+  class="container-fluid col-12 col-lg-10 white-box"
+  *ngIf="appLoading == 1"
+>
   <h3 class="header">
     Your cart
   </h3>
-  <table class="table table-borderless" *ngIf="cartItems.length > 0;else noItems">
+  <table
+    class="table table-borderless"
+    *ngIf="cartItems.length > 0; else noItems"
+  >
     <thead>
       <tr>
         <th>Name</th>
@@ -21,19 +28,31 @@
             {{ cartItem.name }}
           </a>
         </td>
-        <td>{{ cartItem.amount }}</td>
+        <td>
+          <mat-form-field appearance="outline"
+            ><input
+              matInput
+              type="number"
+              value="{{ cartItem.amount }}"
+              (change)="onChange($event, cartItem)"
+          /></mat-form-field>
+        </td>
         <td>{{ cartItem.price }} zł</td>
         <td class="d-flex">
-          <button mat-icon-button type="button" (click)="onDeleteCartItem(cartItem.item_id)"><mat-icon color="warn">delete</mat-icon></button>
+          <button
+            mat-icon-button
+            type="button"
+            (click)="onDeleteCartItem(cartItem)"
+          >
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
         </td>
       </tr>
       <tr>
         <td colspan="2" class="text-right">
           <strong>Total:</strong>
         </td>
-        <td colspan="2" class="text-left">
-         {{totalOrderValue()}} zł
-        </td>
+        <td colspan="2" class="text-left">{{ totalOrderValue() }} zł</td>
       </tr>
     </tbody>
   </table>
@@ -42,8 +61,7 @@
   </div>
   <ng-template #noItems>
     <h4>
-        Your cart is empty
-      </h4>
+      Your cart is empty
+    </h4>
   </ng-template>
-
 </div>
