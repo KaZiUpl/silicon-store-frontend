@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CategoryListComponent } from './pages/category-list/category-list.component';
+import { PlaceOrderComponent } from './pages/place-order/place-order.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,11 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'place-order',
+        canActivate: [AuthGuard],
+        component: PlaceOrderComponent
+      }
     ],
   },
 ];

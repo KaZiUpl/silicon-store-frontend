@@ -7,6 +7,7 @@ import { AuthModule } from '../../pages/auth/auth.module';
 import { ProfileModule } from '../../pages/profile/profile.module';
 import { CartModule } from '../../pages/cart/cart.module';
 import { CategoryListModule } from '../../pages/category-list/category-list.module';
+import { PlaceOrderModule } from '../../pages/place-order/place-order.module';
 
 
 
@@ -19,7 +20,8 @@ import { CategoryListModule } from '../../pages/category-list/category-list.modu
     AuthModule,
     ProfileModule,
     CartModule,
-    CategoryListModule
+    CategoryListModule,
+    PlaceOrderModule
   ]
 })
 export class DefaultModule { }
