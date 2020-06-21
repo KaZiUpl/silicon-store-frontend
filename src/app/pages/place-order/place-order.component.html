@@ -1,1 +1,113 @@
-<p>place-order works!</p>
+<div
+  id="cart-list"
+  class="container-fluid col-12 col-lg-10 white-box"
+  *ngIf="appLoading == 1"
+>
+  <h3 class="header">
+    Your cart
+  </h3>
+  <table class="table table-borderless" *ngIf="cartItems.length > 0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="cart-item" *ngFor="let cartItem of cartItems">
+        <td>
+          <a
+            [routerLink]="['/item/', cartItem.item_id]"
+            routerLinkActive="router-link-active"
+          >
+            {{ cartItem.name }}
+          </a>
+        </td>
+        <td>
+          {{ cartItem.amount }}
+        </td>
+        <td>{{ cartItem.price }} zł</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-right">
+          <strong>Total:</strong>
+        </td>
+        <td colspan="2" class="text-left">{{ totalOrderValue() }} zł</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="header">
+    Shipping information
+  </h3>
+  <div class="row">
+    <div class="col">
+      <p>
+        Fill your shipping information
+      </p>
+    </div>
+  </div>
+  <form class="row" [formGroup]="orderForm" (ngSubmit)="onOrderFormSubmit()">
+    <div class="col-xl-5 col-md-6 mx-auto">
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name" />
+            <mat-error *ngIf="orderForm.get('name').hasError('required')">This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Surname</mat-label>
+            <input matInput type="text" formControlName="surname" />
+            <mat-error *ngIf="orderForm.get('surname').hasError('required')">This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" formControlName="address" />
+            <mat-error *ngIf="orderForm.get('address').hasError('required')">This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput type="text" formControlName="city" />
+            <mat-error *ngIf="orderForm.get('city').hasError('required')">This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Postal code</mat-label>
+            <input matInput type="text" formControlName="postal_code" />
+            <mat-error *ngIf="orderForm.get('postal_code').hasError('required')">This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <mat-checkbox color="accent" matInput formControlName="terms"
+            >I am aware that this is not a real store and I will not receive any of
+            the items from my cart.</mat-checkbox
+          >
+          <p class="text-mat-warn" *ngIf="orderForm.get('terms').hasError('required') && orderFormSubmitted">
+              You have to agree to the terms and conditions
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-right">
+          <button mat-raised-button color="primary">Place order</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
