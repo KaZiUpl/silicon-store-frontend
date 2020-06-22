@@ -3,7 +3,13 @@ import { CartService } from 'src/app/services/cart.service';
 import { CartItemOutput } from 'src/app/models/cartItem.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormControlName } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormControlName,
+} from '@angular/forms';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-place-order',
@@ -16,16 +22,19 @@ export class PlaceOrderComponent implements OnInit {
   orderForm: FormGroup;
   orderFormSubmitted: boolean = false;
 
-  constructor(private cartService: CartService, private router: Router) {
+  constructor(
+    private cartService: CartService,
+    private orderService: OrderService,
+    private router: Router
+  ) {
     this.orderForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       surname: new FormControl(null, [Validators.required]),
       address: new FormControl(null, [Validators.required]),
       city: new FormControl(null, [Validators.required]),
       postal_code: new FormControl(null, [Validators.required]),
-      terms: new FormControl(null, [Validators.required])
+      terms: new FormControl(null, [Validators.required]),
     });
-
 
     cartService.getCartItems().subscribe(
       (data: CartItemOutput[]) => {
@@ -53,12 +62,27 @@ export class PlaceOrderComponent implements OnInit {
   }
 
   onOrderFormSubmit(): void {
-    if(this.orderForm.invalid) {
+    if (this.orderForm.invalid) {
       this.orderFormSubmitted = true;
       return;
     }
 
-
-    
+    this.orderService
+      .createOrder({
+        name: this.orderForm.value.name,
+        surname: this.orderForm.value.surname,
+        address: this.orderForm.value.address,
+        city: this.orderForm.value.city,
+        postal_code: this.orderForm.value.postal_code,
+      })
+      .subscribe(
+        (data: any) => {
+          console.log('order placed');
+          this.router.navigate(['/profile']);
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      );
   }
 }
