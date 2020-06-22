@@ -44,7 +44,9 @@ body {
 .mat-checkbox-layout {
   white-space: normal !important;
 }
-
-mat-form-field {
-  width: 100%;
+form {
+  mat-form-field {
+    width: 100%;
+  }
 }
+
