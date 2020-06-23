@@ -35,6 +35,7 @@
               type="number"
               value="{{ cartItem.amount }}"
               (change)="onChange($event, cartItem)"
+              min="1"
           /></mat-form-field>
         </td>
         <td>{{ cartItem.price }} zł</td>

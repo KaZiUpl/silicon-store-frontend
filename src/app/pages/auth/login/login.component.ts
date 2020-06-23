@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         (response: TokenOutput) => {
           this.userService.setLocalUser(
             response,
-            this.loginForm.value.remember
+            this.loginForm.value.remember != null
           );
           this.userService.AuthenticatedStatus.next(true);
           this.router.navigate(['/index']);
