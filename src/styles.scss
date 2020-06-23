@@ -1,36 +1,19 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @import "~@angular/material/theming";
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
+@import "~ngx-toastr/toastr";
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
 $silicon-store-frontend-primary: mat-palette($mat-green, 500);
 $silicon-store-frontend-accent: mat-palette($mat-amber, 500);
-
-// The warn palette is optional (defaults to red).
 $silicon-store-frontend-warn: mat-palette($mat-red);
 
-// Create the theme object (a Sass map containing all of the palettes).
 $silicon-store-frontend-theme: mat-light-theme(
   $silicon-store-frontend-primary,
   $silicon-store-frontend-accent,
   $silicon-store-frontend-warn
 );
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include angular-material-theme($silicon-store-frontend-theme);
-
-/* You can add global styles to this file, and also import other style files */
-
 
 html,
 body {
@@ -50,3 +33,47 @@ form {
   }
 }
 
+/*
+Toast
+*/
+.toast-success {
+  background-color: #43a047;
+}
+.toast-error {
+  background-color: #f44336;
+}
+.toast-info {
+  background-color: #03a9f4;
+}
+.toast-warning {
+  background-color: #ff5722;
+}
+/* Responsive Design */
+@media all and (max-width: 240px) {
+  .toast-container .toast-close-button {
+    right: -0.2em;
+    top: -0.2em;
+  }
+}
+@media all and (min-width: 241px) and (max-width: 480px) {
+  .toast-container .toast-close-button {
+    right: -0.2em;
+    top: -0.2em;
+  }
+}
+@media all and (min-width: 481px) and (max-width: 768px) {
+  .toast-container .ngx-toastr.div {
+    padding: 15px 15px 15px 50px;
+    width: 25em;
+  }
+}
+@media all and (max-width: 767px) {
+  .toast-container {
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+    .ngx-toastr {
+      width: 100%;
+    }
+  }
+}

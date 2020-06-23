@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,12 @@ import { AuthGuard } from './guards/auth.guard';
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      progressBar: true,
+      maxOpened: 5,
+      positionClass: 'toast-bottom-right',
+    }),
     HttpClientModule,
     DefaultModule,
     IndexModule,
