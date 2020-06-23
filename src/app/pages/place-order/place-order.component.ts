@@ -24,7 +24,7 @@ export class PlaceOrderComponent implements OnInit {
   orderFormSubmitted: boolean = false;
 
   constructor(
-    private toastService:ToastrService,
+    private toastService: ToastrService,
     private cartService: CartService,
     private orderService: OrderService,
     private router: Router

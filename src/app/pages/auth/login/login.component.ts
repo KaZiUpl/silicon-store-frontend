@@ -15,7 +15,11 @@ export class LoginComponent implements OnInit {
   isPassVisible: boolean = false;
   loginForm: FormGroup;
 
-  constructor(private toastService: ToastrService, private userService: UserService, private router: Router) {
+  constructor(
+    private toastService: ToastrService,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
@@ -39,8 +43,12 @@ export class LoginComponent implements OnInit {
           this.userService.AuthenticatedStatus.next(true);
           this.router.navigate(['/index']);
         },
-        (error: HttpErrorResponse) => {         
-          this.toastService.error(error.error.message, 'Error');
+        (error: HttpErrorResponse) => {
+          if (error.status == 400) {
+            this.toastService.error(error.error.message, 'Error');
+          } else {
+            this.toastService.error('Something went wrong', 'Error');
+          }
         }
       );
   }
