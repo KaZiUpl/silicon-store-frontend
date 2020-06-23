@@ -8,9 +8,11 @@ export class CommentOutput {
   updated_at: Date;
 }
 
-
-export class CreateCommentInput
-{
+export class CreateCommentInput {
   item_id: number;
+  text: string;
+}
+
+export class UpdateCommentInput {
   text: string;
 }
