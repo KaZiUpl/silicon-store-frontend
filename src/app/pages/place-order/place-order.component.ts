@@ -10,6 +10,7 @@ import {
   FormControlName,
 } from '@angular/forms';
 import { OrderService } from 'src/app/services/order.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-place-order',
@@ -23,6 +24,7 @@ export class PlaceOrderComponent implements OnInit {
   orderFormSubmitted: boolean = false;
 
   constructor(
+    private toastService:ToastrService,
     private cartService: CartService,
     private orderService: OrderService,
     private router: Router
@@ -43,7 +45,7 @@ export class PlaceOrderComponent implements OnInit {
         this.appLoading++;
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        this.toastService.error('Something went wrong', 'Error');
       }
     );
   }
@@ -77,11 +79,11 @@ export class PlaceOrderComponent implements OnInit {
       })
       .subscribe(
         (data: any) => {
-          console.log('order placed');
+          this.toastService.success('Your order was successfully created!');
           this.router.navigate(['/profile']);
         },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastService.error(error.error.message, 'Error');
         }
       );
   }

@@ -9,6 +9,7 @@ import {
   distinctUntilKeyChanged,
   map,
 } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-display-cart',
@@ -21,14 +22,17 @@ export class DisplayCartComponent implements OnInit {
 
   subject: Subject<CartItemOutput> = new Subject<CartItemOutput>();
 
-  constructor(private cartService: CartService) {
+  constructor(
+    private toastService: ToastrService,
+    private cartService: CartService
+  ) {
     cartService.getCartItems().subscribe(
       (response: CartItemOutput[]) => {
         this.cartItems = response;
         this.appLoading++;
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        this.toastService.error('Something went wrong', 'Error');
       }
     );
   }
@@ -42,7 +46,10 @@ export class DisplayCartComponent implements OnInit {
           .subscribe(
             (response: any) => {},
             (error: HttpErrorResponse) => {
-              console.log(error);
+              this.toastService.error(
+                'Something went wrong, we couldn\t update your item\t amount',
+                'Ooops'
+              );
             }
           );
       });
@@ -56,7 +63,7 @@ export class DisplayCartComponent implements OnInit {
         );
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        this.toastService.error('Something went wrong', 'Error');
       }
     );
   }

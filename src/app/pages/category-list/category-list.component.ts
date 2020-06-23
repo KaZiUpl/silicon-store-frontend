@@ -5,6 +5,7 @@ import { ItemOutput } from 'src/app/models/item.model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { CategoryOutput } from 'src/app/models/category.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category-list',
@@ -21,6 +22,7 @@ export class CategoryListComponent implements OnInit {
   parentCategory: CategoryOutput;
 
   constructor(
+    private toastService: ToastrService,
     private itemService: ItemsService,
     private categoryService: CategoriesService,
     private route: ActivatedRoute
@@ -28,19 +30,25 @@ export class CategoryListComponent implements OnInit {
     //get category id from params
     route.queryParams.subscribe((params: any) => {
       this.categoryId = params['category'];
-      itemService
-        .getAllItems(this.categoryId)
-        .subscribe((response: ItemOutput[]) => {
+      itemService.getAllItems(this.categoryId).subscribe(
+        (response: ItemOutput[]) => {
           this.items = response;
           this.appLoading++;
-        });
+        },
+        (error: HttpErrorResponse) => {
+          this.toastService.error('Something went wrong', 'Error');
+        }
+      );
 
       //get categories for main menu
-      categoryService
-        .getMainCategories()
-        .subscribe((response: CategoryOutput[]) => {
+      categoryService.getMainCategories().subscribe(
+        (response: CategoryOutput[]) => {
           this.mainCategories = response;
-        });
+        },
+        (error: HttpErrorResponse) => {
+          this.toastService.error('Something went wrong', 'Error');
+        }
+      );
       //get category breadcrumbs
       categoryService.getCategoryBreadcrumbs(this.categoryId).subscribe(
         (response: CategoryOutput[]) => {
@@ -52,7 +60,7 @@ export class CategoryListComponent implements OnInit {
           this.appLoading++;
         },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          this.toastService.error('Something went wrong', 'Error');
         }
       );
       //get child categories
@@ -61,7 +69,7 @@ export class CategoryListComponent implements OnInit {
           this.childCategories = response;
         },
         (error: HttpErrorResponse) => {
-          console.log('error');
+          this.toastService.error('Something went wrong', 'Error');
         }
       );
     });

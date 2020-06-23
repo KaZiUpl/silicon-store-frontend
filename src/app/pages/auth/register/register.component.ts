@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateUserInput } from 'src/app/models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,10 @@ export class RegisterComponent implements OnInit {
   isPassVisible: boolean = false;
   registerForm: FormGroup;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private toastService: ToastrService,
+    private userService: UserService
+  ) {
     this.registerForm = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
       nick: new FormControl(null, [Validators.required]),
@@ -36,7 +40,11 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         (response: any) => {},
         (error: HttpErrorResponse) => {
-          console.log(error);
+          if (error.status == 400) {
+            this.toastService.error(error.error.message, 'Oh no!');
+          } else {
+            this.toastService.error('Something went wrong', 'Error');
+          }
         }
       );
   }

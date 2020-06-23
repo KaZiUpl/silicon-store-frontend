@@ -7,6 +7,7 @@ import { CategoryOutput } from 'src/app/models/category.model';
 import { CommentOutput } from 'src/app/models/comment.model';
 import { UserService } from 'src/app/services/user.service';
 import { CartService } from 'src/app/services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-item-page',
@@ -20,17 +21,16 @@ export class ItemPageComponent implements OnInit {
   isAuth: boolean = false;
 
   constructor(
+    private toastService: ToastrService,
     private itemService: ItemsService,
     private userService: UserService,
     private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    userService.AuthenticatedStatus.subscribe(
-      (status: boolean) => {
-        this.isAuth = status;
-      }
-    );
+    userService.AuthenticatedStatus.subscribe((status: boolean) => {
+      this.isAuth = status;
+    });
     //get item's id from route
     this.item.id = route.snapshot.params.id;
     //get item's info
@@ -39,7 +39,10 @@ export class ItemPageComponent implements OnInit {
         this.item = response;
       },
       (error: HttpErrorResponse) => {
-        router.navigate(['/index']);
+        this.toastService.error(
+          'Something went wrong when loading item for you',
+          'Error'
+        );
       }
     );
     //get item's breadcrumbs
@@ -48,7 +51,10 @@ export class ItemPageComponent implements OnInit {
         this.breadcrumbs = response;
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        this.toastService.error(
+          'Something went wrong when loading breadcrumbs',
+          'Error'
+        );
       }
     );
 
@@ -58,25 +64,28 @@ export class ItemPageComponent implements OnInit {
         this.comments = response;
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        this.toastService.error(
+          "Something went wrong, we couldn't load comments for you",
+          'Error'
+        );
       }
     );
   }
 
   ngOnInit(): void {}
 
-
-  onAddToCart() :void {
-    this.cartService.addToCart({item_id: this.item.id}).subscribe(
+  onAddToCart(): void {
+    this.cartService.addToCart({ item_id: this.item.id }).subscribe(
       (response: any) => {
-        console.log('added');
-        
+        this.toastService.success('Added item to your cart!');
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
-        
+        if (error.status == 400) {
+          this.toastService.error(error.error.message, 'Error');
+        } else {
+          this.toastService.error('Something went wrong', 'Error');
+        }
       }
     );
-
   }
 }

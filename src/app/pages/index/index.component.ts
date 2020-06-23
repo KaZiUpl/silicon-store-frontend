@@ -4,6 +4,7 @@ import { CategoryOutput } from 'src/app/models/category.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ItemsService } from 'src/app/services/items.service';
 import { ItemOutput } from 'src/app/models/item.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-index',
@@ -14,14 +15,18 @@ export class IndexComponent implements OnInit {
   mainCategories: CategoryOutput[];
   allItems: ItemOutput[];
 
-  constructor(private categoriesService: CategoriesService, private itemsService: ItemsService) {
+  constructor(
+    private toastService: ToastrService,
+    private categoriesService: CategoriesService,
+    private itemsService: ItemsService
+  ) {
     //fetch main categories
     categoriesService.getMainCategories().subscribe(
       (categories: CategoryOutput[]) => {
         this.mainCategories = categories;
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        this.toastService.error('Something went wrong', 'Error');
       }
     );
     //fetch all items
@@ -30,8 +35,7 @@ export class IndexComponent implements OnInit {
         this.allItems = items;
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
-        
+        this.toastService.error('Something went wrong', 'Error');
       }
     );
   }

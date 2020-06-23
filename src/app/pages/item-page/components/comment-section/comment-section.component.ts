@@ -6,6 +6,7 @@ import { CommentService } from 'src/app/services/comment.service';
 import { ItemOutput } from 'src/app/models/item.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ItemsService } from 'src/app/services/items.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-comment-section',
@@ -15,11 +16,12 @@ import { ItemsService } from 'src/app/services/items.service';
 export class CommentSectionComponent implements OnInit {
   @Input() item: ItemOutput;
   @Input() comments: CommentOutput[];
-  @ViewChild('commForm') commentFormDirective: NgForm; 
+  @ViewChild('commForm') commentFormDirective: NgForm;
   commentForm: FormGroup;
   isAuth: boolean = false;
 
   constructor(
+    private toastService: ToastrService,
     private userService: UserService,
     private commentService: CommentService,
     private itemService: ItemsService
@@ -55,13 +57,16 @@ export class CommentSectionComponent implements OnInit {
               this.commentFormDirective.resetForm();
             },
             (error: HttpErrorResponse) => {
-              console.log(error);
-              
+              this.toastService.error('Something went wrong', 'Error');
             }
           );
         },
         (error: HttpErrorResponse) => {
-          console.log(error);
+          if (error.status == 400) {
+            this.toastService.error(error.error.message, 'Error');
+          } else {
+            this.toastService.error('Something went wrong', 'Error');
+          }
         }
       );
   }

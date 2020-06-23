@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TokenOutput } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   isPassVisible: boolean = false;
   loginForm: FormGroup;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private toastService: ToastrService, private userService: UserService, private router: Router) {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
@@ -38,8 +39,8 @@ export class LoginComponent implements OnInit {
           this.userService.AuthenticatedStatus.next(true);
           this.router.navigate(['/index']);
         },
-        (error: HttpErrorResponse) => {
-          console.log(error);
+        (error: HttpErrorResponse) => {         
+          this.toastService.error(error.error.message, 'Error');
         }
       );
   }
