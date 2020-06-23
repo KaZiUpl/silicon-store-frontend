@@ -46,10 +46,14 @@ export class DisplayCartComponent implements OnInit {
           .subscribe(
             (response: any) => {},
             (error: HttpErrorResponse) => {
-              this.toastService.error(
-                'Something went wrong, we couldn\t update your item\t amount',
-                'Ooops'
-              );
+              if (error.status == 400) {
+                this.toastService.error(error.error.message, 'Error');
+              } else {
+                this.toastService.error(
+                  'Something went wrong with updating your item amount',
+                  'Error'
+                );
+              }
             }
           );
       });
@@ -63,7 +67,11 @@ export class DisplayCartComponent implements OnInit {
         );
       },
       (error: HttpErrorResponse) => {
-        this.toastService.error('Something went wrong', 'Error');
+        if (error.status == 400) {
+          this.toastService.error(error.error.message, 'Error');
+        } else {
+          this.toastService.error('Something went wrong', 'Error');
+        }
       }
     );
   }
