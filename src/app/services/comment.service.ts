@@ -25,7 +25,7 @@ export class CommentService {
   }
 
   deleteComment(commentId: number): Observable<any> {
-    return this.httpClient.delete(environment.apiUrl + 'comment/' + commentId);
+    return this.httpClient.delete(environment.apiUrl + 'comments/' + commentId);
   }
 
   updateComment(
@@ -33,7 +33,7 @@ export class CommentService {
     comment: UpdateCommentInput
   ): Observable<any> {
     return this.httpClient.put(
-      environment.apiUrl + 'comment/' + commentId,
+      environment.apiUrl + 'comments/' + commentId,
       comment
     );
   }
