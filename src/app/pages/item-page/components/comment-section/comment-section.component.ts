@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 import { CommentOutput } from 'src/app/models/comment.model';
 import { UserService } from 'src/app/services/user.service';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
@@ -13,10 +13,11 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './comment-section.component.html',
   styleUrls: ['./comment-section.component.scss'],
 })
-export class CommentSectionComponent implements OnInit {
+export class CommentSectionComponent implements OnInit, OnChanges {
   @Input() item: ItemOutput;
   @Input() comments: CommentOutput[];
   @ViewChild('commForm') commentFormDirective: NgForm;
+  userComment: CommentOutput;
   commentForm: FormGroup;
   isAuth: boolean = false;
 
@@ -38,21 +39,64 @@ export class CommentSectionComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
+
+  ngOnChanges(changes):void {
+    if(changes.comments && changes.comments.currentValue && changes.comments.currentValue.length > 0 && this.userService.getLocalUser() != null)
+    {
+      let userComment:CommentOutput = changes.comments.currentValue.filter((element:CommentOutput) => element.user_id == this.userService.getLocalUser().id)[0];
+      
+      
+      this.commentForm.patchValue({
+        text: userComment.text
+      });
+      this.userComment = userComment;
+    }
+    
+    
+  }
 
   onCommentFormSubmit(): void {
     if (this.commentForm.invalid) return;
 
-    this.commentService
+    if(this.userComment) {
+      //update comment
+      this.commentService.updateComment(this.userComment.id, {text: this.commentForm.value.text}).subscribe(
+        (data:any) => {
+          this.toastService.success('Updated your comment');
+          /// update comment text on the list
+          this.comments.forEach(comment => {
+            if(comment.id == this.userComment.id) {
+              comment.text = this.commentForm.value.text;
+            }
+          });
+        },
+        (error: HttpErrorResponse) => {
+          this.toastService.error('Something went wrong and we couldn\'t update your comment');
+        }
+      );
+    }
+    else {
+      //create comment
+      this.commentService
       .createComment({
         item_id: this.item.id,
         text: this.commentForm.value.text,
       })
       .subscribe(
         (response: any) => {
+          
           this.itemService.getItemComments(this.item.id).subscribe(
             (comments: CommentOutput[]) => {
               this.comments = comments;
+              this.comments.forEach(comment => {
+                if(comment.user_id == this.userService.getLocalUser().id)
+                {
+                  this.userComment = comment;
+                }
+              });
               this.commentForm.reset();
               this.commentFormDirective.resetForm();
             },
@@ -69,5 +113,7 @@ export class CommentSectionComponent implements OnInit {
           }
         }
       );
+    }
+    
   }
 }
