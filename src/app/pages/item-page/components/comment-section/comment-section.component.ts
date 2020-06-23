@@ -39,81 +39,85 @@ export class CommentSectionComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  ngOnChanges(changes):void {
-    if(changes.comments && changes.comments.currentValue && changes.comments.currentValue.length > 0 && this.userService.getLocalUser() != null)
-    {
-      let userComment:CommentOutput = changes.comments.currentValue.filter((element:CommentOutput) => element.user_id == this.userService.getLocalUser().id)[0];
-      
-      
+  ngOnChanges(changes): void {
+    if (
+      changes.comments &&
+      changes.comments.currentValue &&
+      changes.comments.currentValue.length > 0 &&
+      this.userService.getLocalUser() != null
+    ) {
+      let userComment: CommentOutput = changes.comments.currentValue.filter(
+        (element: CommentOutput) =>
+          element.user_id == this.userService.getLocalUser().id
+      )[0];
+
       this.commentForm.patchValue({
-        text: userComment.text
+        text: userComment.text,
       });
       this.userComment = userComment;
     }
-    
-    
   }
 
   onCommentFormSubmit(): void {
     if (this.commentForm.invalid) return;
 
-    if(this.userComment) {
+    if (this.userComment) {
       //update comment
-      this.commentService.updateComment(this.userComment.id, {text: this.commentForm.value.text}).subscribe(
-        (data:any) => {
-          this.toastService.success('Updated your comment');
-          /// update comment text on the list
-          this.comments.forEach(comment => {
-            if(comment.id == this.userComment.id) {
-              comment.text = this.commentForm.value.text;
-            }
-          });
-        },
-        (error: HttpErrorResponse) => {
-          this.toastService.error('Something went wrong and we couldn\'t update your comment');
-        }
-      );
-    }
-    else {
+      this.commentService
+        .updateComment(this.userComment.id, {
+          text: this.commentForm.value.text,
+        })
+        .subscribe(
+          (data: any) => {
+            this.toastService.success('Updated your comment');
+            /// update comment text on the list
+            this.comments.forEach((comment) => {
+              if (comment.id == this.userComment.id) {
+                comment.text = this.commentForm.value.text;
+              }
+            });
+          },
+          (error: HttpErrorResponse) => {
+            this.toastService.error(
+              "Something went wrong and we couldn't update your comment"
+            );
+          }
+        );
+    } else {
       //create comment
       this.commentService
-      .createComment({
-        item_id: this.item.id,
-        text: this.commentForm.value.text,
-      })
-      .subscribe(
-        (response: any) => {
-          
-          this.itemService.getItemComments(this.item.id).subscribe(
-            (comments: CommentOutput[]) => {
-              this.comments = comments;
-              this.comments.forEach(comment => {
-                if(comment.user_id == this.userService.getLocalUser().id)
-                {
-                  this.userComment = comment;
-                }
-              });
-              this.commentForm.reset();
-              this.commentFormDirective.resetForm();
-            },
-            (error: HttpErrorResponse) => {
+        .createComment({
+          item_id: this.item.id,
+          text: this.commentForm.value.text,
+        })
+        .subscribe(
+          (response: any) => {
+            this.itemService.getItemComments(this.item.id).subscribe(
+              (comments: CommentOutput[]) => {
+                this.comments = comments;
+                this.comments.forEach((comment) => {
+                  if (comment.user_id == this.userService.getLocalUser().id) {
+                    this.userComment = comment;
+                  }
+                });
+                this.commentForm.reset();
+                this.commentFormDirective.resetForm();
+              },
+              (error: HttpErrorResponse) => {
+                this.toastService.error('Something went wrong', 'Error');
+              }
+            );
+          },
+          (error: HttpErrorResponse) => {
+            if (error.status == 400) {
+              this.toastService.error(error.error.message, 'Error');
+            } else {
               this.toastService.error('Something went wrong', 'Error');
             }
-          );
-        },
-        (error: HttpErrorResponse) => {
-          if (error.status == 400) {
-            this.toastService.error(error.error.message, 'Error');
-          } else {
-            this.toastService.error('Something went wrong', 'Error');
           }
-        }
-      );
+        );
     }
-    
   }
 }
