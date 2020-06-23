@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { CommentService } from 'src/app/services/comment.service';
 import { ItemOutput } from 'src/app/models/item.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ItemsService } from 'src/app/services/items.service';
+import { ItemService } from 'src/app/services/item.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -25,7 +25,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
     private toastService: ToastrService,
     private userService: UserService,
     private commentService: CommentService,
-    private itemService: ItemsService
+    private itemService: ItemService
   ) {
     userService.AuthenticatedStatus.subscribe((status: boolean) => {
       this.isAuth = status;

@@ -9,7 +9,7 @@ import { CategoryOutput } from '../models/category.model';
 @Injectable({
   providedIn: 'root',
 })
-export class ItemsService {
+export class ItemService {
   constructor(private httpClient: HttpClient) {}
 
   getAllItems(categoryId?: number): Observable<ItemOutput[]> {

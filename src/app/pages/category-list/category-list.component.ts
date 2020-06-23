@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemsService } from 'src/app/services/items.service';
+import { ItemService } from 'src/app/services/item.service';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOutput } from 'src/app/models/item.model';
-import { CategoriesService } from 'src/app/services/categories.service';
 import { CategoryOutput } from 'src/app/models/category.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-category-list',
@@ -23,8 +23,8 @@ export class CategoryListComponent implements OnInit {
 
   constructor(
     private toastService: ToastrService,
-    private itemService: ItemsService,
-    private categoryService: CategoriesService,
+    private itemService: ItemService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute
   ) {
     //get category id from params

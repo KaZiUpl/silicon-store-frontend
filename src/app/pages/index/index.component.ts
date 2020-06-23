@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService } from 'src/app/services/categories.service';
+import { CategoryService } from 'src/app/services/category.service';
 import { CategoryOutput } from 'src/app/models/category.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ItemsService } from 'src/app/services/items.service';
+import { ItemService } from 'src/app/services/item.service';
 import { ItemOutput } from 'src/app/models/item.model';
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,8 +17,8 @@ export class IndexComponent implements OnInit {
 
   constructor(
     private toastService: ToastrService,
-    private categoriesService: CategoriesService,
-    private itemsService: ItemsService
+    private categoriesService: CategoryService,
+    private itemsService: ItemService
   ) {
     //fetch main categories
     categoriesService.getMainCategories().subscribe(

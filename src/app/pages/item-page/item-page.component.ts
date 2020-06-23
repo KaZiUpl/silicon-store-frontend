@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemsService } from 'src/app/services/items.service';
+import { ItemService } from 'src/app/services/item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemOutput } from 'src/app/models/item.model';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -22,7 +22,7 @@ export class ItemPageComponent implements OnInit {
 
   constructor(
     private toastService: ToastrService,
-    private itemService: ItemsService,
+    private itemService: ItemService,
     private userService: UserService,
     private cartService: CartService,
     private route: ActivatedRoute,
