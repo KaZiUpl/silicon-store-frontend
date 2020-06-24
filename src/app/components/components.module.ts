@@ -9,6 +9,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { RouterModule } from '@angular/router';
 import { OrderNumberPipe } from '../pipes/order-number.pipe';
 import { MaterialModule } from './material.module';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MaterialModule } from './material.module';
     SafePipe,
     BreadcrumbsComponent,
     OrderNumberPipe,
+    PaginationComponent,
   ],
   imports: [CommonModule, RouterModule, MaterialModule],
   exports: [
@@ -28,7 +30,8 @@ import { MaterialModule } from './material.module';
     ItemListComponent,
     BreadcrumbsComponent,
     SafePipe,
-    OrderNumberPipe
+    OrderNumberPipe,
+    PaginationComponent
   ],
 })
 export class ComponentsModule {}

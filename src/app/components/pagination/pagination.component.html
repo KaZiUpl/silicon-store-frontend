@@ -1,0 +1,39 @@
+<div class="col-12" *ngIf="total > pageSize">
+  <ul class="pagination justify-content-end" style="margin: 20px 0;">
+    <!-- Previous Page Link -->
+    <li class="page-item" *ngIf="page > 1; else firstPage">
+      <a
+        href="javascript:void(0)"
+        (click)="setPage(page - 1, pageSize)"
+        class="page-link"
+        rel="prev"
+        >&laquo; previous</a
+      >
+    </li>
+    <ng-template #firstPage>
+      <li class="page-item disabled">
+        <a class="page-link" rel="prev">&laquo; previous</a>
+      </li>
+    </ng-template>
+
+    <li class="page-item disabled">
+      <span class="page-link">{{page}} out of {{lastPageNumber}}</span>
+    </li>
+
+    <!-- Next Page Link -->
+    <li class="page-item" *ngIf="page != lastPageNumber; else lastPage">
+      <a
+        href="javascript:void(0)"
+        (click)="setPage(page + 1, pageSize)"
+        class="page-link"
+        rel="next"
+        >next &raquo;</a
+      >
+    </li>
+    <ng-template #lastPage>
+      <li class="page-item disabled">
+        <a class="page-link" rel="next">next &raquo;</a>
+      </li>
+    </ng-template>
+  </ul>
+</div>
