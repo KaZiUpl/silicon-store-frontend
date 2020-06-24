@@ -5,6 +5,7 @@ import { CreateUserInput } from 'src/app/models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,9 +19,16 @@ export class RegisterComponent implements OnInit {
   constructor(
     private toastService: ToastrService,
     private userService: UserService,
+    private router: Router,
     private titleService: Title
   ) {
     titleService.setTitle('Sign up | Silicon Store');
+    
+    //redirect logged in users to profile page
+    if(userService.getLocalUser() != null)
+    {
+      router.navigate(['/profile']);
+    }
 
     this.registerForm = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
