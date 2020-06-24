@@ -15,7 +15,6 @@ export class OrderComponent implements OnInit {
   appLoading: number = 0;
   order: OrderOutput = new OrderOutput();
   orderItems: OrderItemOutput[];
-  orderTotal: number = 0;
 
   constructor(
     private toastService: ToastrService,
@@ -35,9 +34,6 @@ export class OrderComponent implements OnInit {
     this.orderService.getOrderItems(this.order.id).subscribe(
       (response: OrderItemOutput[]) => {
         this.orderItems = response;
-        this.orderItems.forEach((element) => {
-          this.orderTotal += element.amount * element.price;
-        });
         this.appLoading++;
       },
       (error: HttpErrorResponse) => {

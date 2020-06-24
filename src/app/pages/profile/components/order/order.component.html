@@ -5,11 +5,9 @@
 >
   <h3 class="header">Order no. {{ order.id | orderNumber: 10 }}</h3>
   <div class="row">
-      <div class="col-12">
-          <p>
-              Created on {{order.created_at | date:'dd.MM.yyyy, HH:mm'}}
-          </p>
-      </div>
+    <div class="col-12">
+      <p>Created on {{ order.created_at | date: "dd.MM.yyyy, HH:mm" }}</p>
+    </div>
   </div>
   <div class="row">
     <div class="col-12">
@@ -58,16 +56,14 @@
                 {{ item.item_name }}
               </a>
             </td>
-            <td>{{item.amount}}</td>
-            <td>{{item.price * item.amount}} zł</td>
+            <td>{{ item.amount }}</td>
+            <td>{{ item.price * item.amount }} zł</td>
           </tr>
           <tr>
             <td colspan="2" class="text-right">
               <strong>Total:</strong>
             </td>
-            <td colspan="1" class="text-left">
-              {{orderTotal}} zł
-            </td>
+            <td colspan="1" class="text-left">{{ order.value }} zł</td>
           </tr>
         </tbody>
       </table>
