@@ -15,6 +15,8 @@ export class DisplayProfileComponent implements OnInit {
   appLoading: number = 0;
   userData: UserOutput = new UserOutput();
   orders: OrderOutput[];
+  displayedOrders: OrderOutput[];
+  pageSize:number = 5;
 
   constructor(
     private toastService: ToastrService,
@@ -34,6 +36,7 @@ export class DisplayProfileComponent implements OnInit {
     orderService.getUserOrders().subscribe(
       (response: OrderOutput[]) => {
         this.orders = response;
+        this.displayedOrders = this.getOrdersFromPage(1,this.pageSize);
         this.appLoading++;
       },
       (error: HttpErrorResponse) => {
@@ -43,4 +46,12 @@ export class DisplayProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  pageChange(event: any): void {
+    this.displayedOrders = this.getOrdersFromPage(event.page, event.pageSize);
+  }
+
+  getOrdersFromPage(page: number, pageSize: number): OrderOutput[] {   
+    return this.orders.slice((page-1) * pageSize, (page-1) * pageSize + pageSize);
+  }
 }
