@@ -1,4 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { ItemOutput } from 'src/app/models/item.model';
 import { UserService } from 'src/app/services/user.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -10,8 +16,10 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.scss'],
 })
-export class ItemListComponent implements OnInit {
+export class ItemListComponent implements OnInit, OnChanges {
   @Input() items: ItemOutput[];
+  @Input() pageSize: number;
+  displayedItems: ItemOutput[];
   isAuth: boolean = false;
 
   constructor(
@@ -27,6 +35,14 @@ export class ItemListComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnChanges(changes: SimpleChanges) {   
+    if (this.items !== undefined) {      
+     this.displayedItems = this.getItemsFromPage(1, this.pageSize);
+     console.log();
+     
+    }
+  }
+
   onAddToCart(itemId: number): void {
     this.cartService.addToCart({ item_id: itemId }).subscribe(
       (response: any) => {
@@ -40,5 +56,13 @@ export class ItemListComponent implements OnInit {
         }
       }
     );
+  }
+
+  pageChange(event: any): void {
+    this.displayedItems = this.getItemsFromPage(event.page, event.pageSize);
+  }
+
+  getItemsFromPage(page: number, pageSize: number): ItemOutput[] {   
+    return this.items.slice((page-1) * pageSize, (page-1) * pageSize + pageSize);
   }
 }

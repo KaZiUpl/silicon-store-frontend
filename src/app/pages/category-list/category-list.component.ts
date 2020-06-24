@@ -53,10 +53,12 @@ export class CategoryListComponent implements OnInit {
       categoryService.getCategoryBreadcrumbs(this.categoryId).subscribe(
         (response: CategoryOutput[]) => {
           this.breadcrumbs = response;
+          
           this.parentCategory =
             this.breadcrumbs.length > 2
               ? this.breadcrumbs[this.breadcrumbs.length - 2]
               : this.breadcrumbs[0];
+              
           this.appLoading++;
         },
         (error: HttpErrorResponse) => {
