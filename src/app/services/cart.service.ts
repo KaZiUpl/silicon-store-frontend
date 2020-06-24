@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CartService {
-  
   constructor(private httpClient: HttpClient) {}
 
   getCartItems(): Observable<CartItemOutput[]> {

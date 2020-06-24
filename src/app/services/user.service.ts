@@ -8,7 +8,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  public AuthenticatedStatus: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticated());
+  public AuthenticatedStatus: BehaviorSubject<boolean> = new BehaviorSubject<
+    boolean
+  >(this.isAuthenticated());
 
   constructor(private httpClient: HttpClient) {}
 
@@ -31,7 +33,7 @@ export class UserService {
     const user = this.getLocalUser();
 
     const body = {
-      api_key: user.api_key
+      api_key: user.api_key,
     };
 
     return this.httpClient.post(environment.apiUrl + 'users/logout', body);

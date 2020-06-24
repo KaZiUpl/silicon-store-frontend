@@ -1,31 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'orderNumber'
+  name: 'orderNumber',
 })
 export class OrderNumberPipe implements PipeTransform {
-
   transform(value: unknown, desiredLength: number): string {
     let valueString: string = '';
-    try
-    {
+    try {
       valueString = value.toString();
-    }
-    catch(error) {
+    } catch (error) {
       return error.message;
     }
 
-    if(valueString.length >= desiredLength) 
-    {
+    if (valueString.length >= desiredLength) {
       return valueString;
-    }
-    else {     
-      for(var i=valueString.length ; i<desiredLength ; i++)
-      {
-        valueString = '0'+valueString;
+    } else {
+      for (var i = valueString.length; i < desiredLength; i++) {
+        valueString = '0' + valueString;
       }
       return valueString;
-    } 
+    }
   }
-
 }

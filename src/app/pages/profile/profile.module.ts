@@ -7,14 +7,13 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { ComponentsModule } from 'src/app/components/components.module';
 import { OrderComponent } from './components/order/order.component';
 
-
-
 @NgModule({
-  declarations: [ProfileComponent, DisplayProfileComponent, EditProfileComponent, OrderComponent],
-  imports: [
-    CommonModule,
-    ProfileRoutingModule,
-    ComponentsModule
-  ]
+  declarations: [
+    ProfileComponent,
+    DisplayProfileComponent,
+    EditProfileComponent,
+    OrderComponent,
+  ],
+  imports: [CommonModule, ProfileRoutingModule, ComponentsModule],
 })
-export class ProfileModule { }
+export class ProfileModule {}

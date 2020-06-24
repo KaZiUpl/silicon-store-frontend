@@ -39,7 +39,9 @@
                 >{{ order.id | orderNumber: 10 }}</a
               >
             </td>
-            <td class="text-center">{{ order.created_at | date: "d.MM.yyyy HH:mm" }}</td>
+            <td class="text-center">
+              {{ order.created_at | date: "d.MM.yyyy HH:mm" }}
+            </td>
             <td class="text-right">{{ order.value }}</td>
           </tr>
         </ng-template>

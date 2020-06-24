@@ -35,11 +35,10 @@ export class ItemListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges) {   
-    if (this.items !== undefined) {      
-     this.displayedItems = this.getItemsFromPage(1, this.pageSize);
-     console.log();
-     
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.items !== undefined) {
+      this.displayedItems = this.getItemsFromPage(1, this.pageSize);
+      console.log();
     }
   }
 
@@ -62,7 +61,10 @@ export class ItemListComponent implements OnInit, OnChanges {
     this.displayedItems = this.getItemsFromPage(event.page, event.pageSize);
   }
 
-  getItemsFromPage(page: number, pageSize: number): ItemOutput[] {   
-    return this.items.slice((page-1) * pageSize, (page-1) * pageSize + pageSize);
+  getItemsFromPage(page: number, pageSize: number): ItemOutput[] {
+    return this.items.slice(
+      (page - 1) * pageSize,
+      (page - 1) * pageSize + pageSize
+    );
   }
 }

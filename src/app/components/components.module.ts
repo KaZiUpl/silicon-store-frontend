@@ -31,7 +31,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     BreadcrumbsComponent,
     SafePipe,
     OrderNumberPipe,
-    PaginationComponent
+    PaginationComponent,
   ],
 })
 export class ComponentsModule {}

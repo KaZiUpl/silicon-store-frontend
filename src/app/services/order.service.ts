@@ -22,10 +22,12 @@ export class OrderService {
   }
 
   getOrderItems(orderId: number): Observable<OrderItemOutput[]> {
-    return this.httpClient.get<OrderItemOutput[]>(environment.apiUrl+'orders/'+orderId+'/items');
+    return this.httpClient.get<OrderItemOutput[]>(
+      environment.apiUrl + 'orders/' + orderId + '/items'
+    );
   }
 
   createOrder(orderInfo: CreateOrderInput): Observable<any> {
-    return this.httpClient.post(environment.apiUrl+'orders', orderInfo);
+    return this.httpClient.post(environment.apiUrl + 'orders', orderInfo);
   }
 }

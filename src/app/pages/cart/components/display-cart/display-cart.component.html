@@ -58,7 +58,14 @@
     </tbody>
   </table>
   <div class="col-12 text-right" *ngIf="cartItems.length > 0">
-    <button mat-raised-button color="primary" [routerLink]="['/place-order']" routerLinkActive="router-link-active" >Place new order</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/place-order']"
+      routerLinkActive="router-link-active"
+    >
+      Place new order
+    </button>
   </div>
   <ng-template #noItems>
     <h4>

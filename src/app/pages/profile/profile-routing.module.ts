@@ -17,8 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'orders/:id',
-    component: OrderComponent
-  }
+    component: OrderComponent,
+  },
 ];
 
 @NgModule({

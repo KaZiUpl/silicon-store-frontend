@@ -5,13 +5,8 @@ import { CategoryListRoutingModule } from './category-list-routing.module';
 import { CategoryListComponent } from './category-list.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 
-
 @NgModule({
   declarations: [CategoryListComponent],
-  imports: [
-    CommonModule,
-    ComponentsModule,
-    CategoryListRoutingModule
-  ]
+  imports: [CommonModule, ComponentsModule, CategoryListRoutingModule],
 })
-export class CategoryListModule { }
+export class CategoryListModule {}

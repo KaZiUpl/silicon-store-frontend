@@ -33,7 +33,7 @@ import { CategoryService } from './services/category.service';
     HttpClientModule,
     DefaultModule,
     IndexModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [
     UserService,

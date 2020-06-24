@@ -75,8 +75,8 @@ const routes: Routes = [
       {
         path: 'place-order',
         canActivate: [AuthGuard],
-        component: PlaceOrderComponent
-      }
+        component: PlaceOrderComponent,
+      },
     ],
   },
 ];

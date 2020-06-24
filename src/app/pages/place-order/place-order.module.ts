@@ -6,14 +6,13 @@ import { PlaceOrderComponent } from './place-order.component';
 import { MaterialModule } from 'src/app/components/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [PlaceOrderComponent],
   imports: [
     CommonModule,
     PlaceOrderRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class PlaceOrderModule { }
+export class PlaceOrderModule {}
