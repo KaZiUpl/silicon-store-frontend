@@ -8,6 +8,7 @@ import { CommentOutput } from 'src/app/models/comment.model';
 import { UserService } from 'src/app/services/user.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-item-page',
@@ -26,7 +27,8 @@ export class ItemPageComponent implements OnInit {
     private userService: UserService,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {
     userService.AuthenticatedStatus.subscribe((status: boolean) => {
       this.isAuth = status;
@@ -37,6 +39,7 @@ export class ItemPageComponent implements OnInit {
     this.itemService.getItem(this.item.id).subscribe(
       (response: ItemOutput) => {
         this.item = response;
+        this.titleService.setTitle(this.item.name + ' | Silicon Store');
       },
       (error: HttpErrorResponse) => {
         this.toastService.error(

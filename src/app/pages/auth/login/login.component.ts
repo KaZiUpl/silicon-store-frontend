@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TokenOutput } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private toastService: ToastrService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {
+    titleService.setTitle('Sign in | Silicon Store');
+
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),

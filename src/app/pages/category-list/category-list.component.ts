@@ -6,6 +6,7 @@ import { CategoryOutput } from 'src/app/models/category.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/services/category.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-category-list',
@@ -25,7 +26,8 @@ export class CategoryListComponent implements OnInit {
     private toastService: ToastrService,
     private itemService: ItemService,
     private categoryService: CategoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title
   ) {
     //get category id from params
     route.queryParams.subscribe((params: any) => {
@@ -53,12 +55,16 @@ export class CategoryListComponent implements OnInit {
       categoryService.getCategoryBreadcrumbs(this.categoryId).subscribe(
         (response: CategoryOutput[]) => {
           this.breadcrumbs = response;
-          
+          this.titleService.setTitle(
+            this.breadcrumbs[this.breadcrumbs.length - 1].name +
+              ' | Silicon Store'
+          );
+
           this.parentCategory =
             this.breadcrumbs.length > 2
               ? this.breadcrumbs[this.breadcrumbs.length - 2]
               : this.breadcrumbs[0];
-              
+
           this.appLoading++;
         },
         (error: HttpErrorResponse) => {

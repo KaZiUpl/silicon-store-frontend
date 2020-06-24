@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ItemService } from 'src/app/services/item.service';
 import { ItemOutput } from 'src/app/models/item.model';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-index',
@@ -18,8 +19,11 @@ export class IndexComponent implements OnInit {
   constructor(
     private toastService: ToastrService,
     private categoriesService: CategoryService,
-    private itemsService: ItemService
+    private itemsService: ItemService,
+    private titleService: Title
   ) {
+    titleService.setTitle('Silicon Store');
+
     //fetch main categories
     categoriesService.getMainCategories().subscribe(
       (categories: CategoryOutput[]) => {

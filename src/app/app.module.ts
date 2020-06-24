@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -36,6 +36,7 @@ import { CategoryService } from './services/category.service';
     AuthModule,
   ],
   providers: [
+    Title,
     UserService,
     ItemService,
     CategoryService,

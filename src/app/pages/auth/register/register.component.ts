@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateUserInput } from 'src/app/models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -16,8 +17,11 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private toastService: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private titleService: Title
   ) {
+    titleService.setTitle('Sign up | Silicon Store');
+
     this.registerForm = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
       nick: new FormControl(null, [Validators.required]),

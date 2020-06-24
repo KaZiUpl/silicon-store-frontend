@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { OrderService } from 'src/app/services/order.service';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-place-order',
@@ -27,8 +28,11 @@ export class PlaceOrderComponent implements OnInit {
     private toastService: ToastrService,
     private cartService: CartService,
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('New order | Silicon Store');
+
     this.orderForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       surname: new FormControl(null, [Validators.required]),
