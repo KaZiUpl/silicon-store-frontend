@@ -42,8 +42,9 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Amount</th>
             <th>Price</th>
+            <th>Amount</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -56,14 +57,15 @@
                 {{ item.item_name }}
               </a>
             </td>
+            <td>{{ item.price.toFixed(2) }} USD</td>
             <td>{{ item.amount }}</td>
-            <td>{{ item.price * item.amount }} zł</td>
+            <td>{{ (item.price * item.amount).toFixed(2) }} USD</td>
           </tr>
           <tr>
-            <td colspan="2" class="text-right">
-              <strong>Total:</strong>
+            <td colspan="3" class="text-right">
+              <strong>Order total:</strong>
             </td>
-            <td colspan="1" class="text-left">{{ order.value }} zł</td>
+            <td colspan="1" class="text-left">{{ order.value }} USD</td>
           </tr>
         </tbody>
       </table>

@@ -53,10 +53,12 @@ export class CommentSectionComponent implements OnInit, OnChanges {
           element.user_id == this.userService.getLocalUser().id
       )[0];
 
-      this.commentForm.patchValue({
-        text: userComment.text,
-      });
-      this.userComment = userComment;
+      if(userComment){
+        this.commentForm.patchValue({
+          text: userComment.text,
+        });
+        this.userComment = userComment;
+      }
     }
   }
 
@@ -102,8 +104,6 @@ export class CommentSectionComponent implements OnInit, OnChanges {
                     this.userComment = comment;
                   }
                 });
-                this.commentForm.reset();
-                this.commentFormDirective.resetForm();
               },
               (error: HttpErrorResponse) => {
                 this.toastService.error('Something went wrong', 'Error');

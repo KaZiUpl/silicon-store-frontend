@@ -9,12 +9,14 @@
   <table
     class="table table-borderless"
     *ngIf="cartItems.length > 0; else noItems"
+    style="table-layout: fixed;"
   >
     <thead>
       <tr>
         <th>Name</th>
-        <th>Amount</th>
         <th>Price</th>
+        <th>Amount</th>
+        <th>Total</th>
         <th></th>
       </tr>
     </thead>
@@ -28,8 +30,9 @@
             {{ cartItem.name }}
           </a>
         </td>
+        <td>{{ cartItem.price.toFixed(2) }} USD</td>
         <td>
-          <mat-form-field appearance="outline"
+          <mat-form-field appearance="outline" class="w-50"
             ><input
               matInput
               type="number"
@@ -38,7 +41,7 @@
               min="1"
           /></mat-form-field>
         </td>
-        <td>{{ cartItem.price }} zł</td>
+        <td>{{ (cartItem.price * cartItem.amount).toFixed(2) }} USD</td>
         <td>
           <button
             mat-icon-button
@@ -50,10 +53,10 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2" class="text-right">
-          <strong>Total:</strong>
+        <td colspan="3" class="text-right">
+          <strong>Cart total:</strong>
         </td>
-        <td colspan="2" class="text-left">{{ totalOrderValue() }} zł</td>
+        <td colspan="2" class="text-left">{{ totalOrderValue() }} USD</td>
       </tr>
     </tbody>
   </table>
