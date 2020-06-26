@@ -1,4 +1,4 @@
-<div
+<section
   id="product_list"
   class="container-fluid"
   *ngIf="items && items.length > 0; else noItems"
@@ -65,11 +65,11 @@
     [total]="this.items.length"
     (pageChange)="pageChange($event)"
   ></app-pagination>
-</div>
+</section>
 <ng-template #noItems>
-  <div id="product_list" class="container-fluid col-12">
+  <section id="product_list" class="container-fluid col-12">
     <h4 class="col-12 text-center">
       No items here
     </h4>
-  </div>
+  </section>
 </ng-template>
