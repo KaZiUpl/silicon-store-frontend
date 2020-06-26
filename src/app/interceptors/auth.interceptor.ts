@@ -4,7 +4,6 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { UserService } from '../services/user.service';
@@ -40,7 +39,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(newRequest).pipe(
       catchError((error, caught) => {
-        
         if (error.status == 401) {
           this.userService.removeLocalUser();
           this.userService.AuthenticatedStatus.next(false);
@@ -55,11 +53,10 @@ export class AuthInterceptor implements HttpInterceptor {
             message: 'Houston, we have a problem.',
           });
         }
-        if(error.status == 403)
-        {
+        if (error.status == 403) {
           this.errorService.setErrorAndRedirect({
             code: 403,
-            message: 'This is forbidden for you. U can\'t touch this',
+            message: "This is forbidden for you. U can't touch this",
           });
         }
 
