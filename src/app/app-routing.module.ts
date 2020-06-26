@@ -8,6 +8,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CategoryListComponent } from './pages/category-list/category-list.component';
 import { PlaceOrderComponent } from './pages/place-order/place-order.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const routes: Routes = [
   {
@@ -77,6 +78,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: PlaceOrderComponent,
       },
+      {
+        path:'**',
+        component: ErrorComponent,
+        data: {
+          code: 404,
+          message: 'Are you sure you wanted to go here?'
+        }
+      }
     ],
   },
 ];

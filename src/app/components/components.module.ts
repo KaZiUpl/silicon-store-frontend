@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { OrderNumberPipe } from '../pipes/order-number.pipe';
 import { MaterialModule } from './material.module';
 import { PaginationComponent } from './pagination/pagination.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     BreadcrumbsComponent,
     OrderNumberPipe,
     PaginationComponent,
+    ErrorComponent,
   ],
   imports: [CommonModule, RouterModule, MaterialModule],
   exports: [

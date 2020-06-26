@@ -1,2 +1,12 @@
-<app-main-category-menu [categories]="mainCategories"></app-main-category-menu>
-<app-item-list [items]="allItems" [pageSize]="5"></app-item-list>
+<div class="row">
+  <div class="col">
+    <app-main-category-menu
+      [categories]="mainCategories"
+    ></app-main-category-menu>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <app-item-list [items]="allItems" [pageSize]="5"></app-item-list>
+  </div>
+</div>
