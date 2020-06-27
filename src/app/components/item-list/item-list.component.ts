@@ -38,7 +38,6 @@ export class ItemListComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.items !== undefined) {
       this.displayedItems = this.getItemsFromPage(1, this.pageSize);
-      console.log();
     }
   }
 

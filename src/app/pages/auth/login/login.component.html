@@ -23,6 +23,9 @@
             placeholder="Your email address"
             formControlName="email"
           />
+          <mat-error *ngIf="loginForm.get('email').hasError('required')"
+          >This field is required</mat-error
+        >
         </mat-form-field>
       </div>
     </div>
@@ -36,6 +39,9 @@
             placeholder="Try to make it hard"
             formControlName="password"
           />
+          <mat-error *ngIf="loginForm.get('password').hasError('required')"
+          >This field is required</mat-error
+        >
           <button
             type="button"
             mat-icon-button
