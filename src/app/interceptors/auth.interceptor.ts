@@ -56,7 +56,13 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error.status == 403) {
           this.errorService.setErrorAndRedirect({
             code: 403,
-            message: "This is forbidden for you. U can't touch this",
+            message: 'This is forbidden for you. U can\'t touch this',
+          });
+        }
+        if (error.status == 404) {
+          this.errorService.setErrorAndRedirect({
+            code: 404,
+            message: 'Are you sure you wanted to go here?',
           });
         }
 

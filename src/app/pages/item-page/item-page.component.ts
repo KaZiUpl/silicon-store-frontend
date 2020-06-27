@@ -16,6 +16,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./item-page.component.scss'],
 })
 export class ItemPageComponent implements OnInit {
+  appLoading: number = 0;
   item: ItemOutput = new ItemOutput();
   breadcrumbs: CategoryOutput[];
   comments: CommentOutput[];
@@ -40,6 +41,7 @@ export class ItemPageComponent implements OnInit {
       (response: ItemOutput) => {
         this.item = response;
         this.titleService.setTitle(this.item.name + ' | Silicon Store');
+        this.appLoading++;
       },
       (error: HttpErrorResponse) => {
         this.toastService.error(
@@ -52,6 +54,7 @@ export class ItemPageComponent implements OnInit {
     this.itemService.getItemBreadcrumbs(this.item.id).subscribe(
       (response: CategoryOutput[]) => {
         this.breadcrumbs = response;
+        this.appLoading++;
       },
       (error: HttpErrorResponse) => {
         this.toastService.error(
@@ -65,6 +68,7 @@ export class ItemPageComponent implements OnInit {
     this.itemService.getItemComments(this.item.id).subscribe(
       (response: CommentOutput[]) => {
         this.comments = response;
+        this.appLoading++;
       },
       (error: HttpErrorResponse) => {
         this.toastService.error(

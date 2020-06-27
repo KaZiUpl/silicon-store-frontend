@@ -1,93 +1,95 @@
-<app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
-<div id="item-frame" class="container-fluid white-box">
-  <div class="row">
-    <div class="col-12">
-      <h2 class="card-title">{{ item.name }}</h2>
+<div *ngIf="appLoading == 3">
+  <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
+  <div id="item-frame" class="container-fluid white-box">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="card-title">{{ item.name }}</h2>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div
-      class="col-6 col-lg-4 d-flex align-items-center justify-content-center"
-    >
-      <img
-        id="product-photo"
-        src="{{ item.photo }}"
-        class="col-12"
-        alt="{{ item.name }}"
-      />
-    </div>
-    <div
-      class="col-12 col-lg-5 d-flex align-items-center justify-content-center"
-    >
-      <table
-        class="table short-specification"
-        [innerHTML]="item.short_specification | safe: 'html'"
-      ></table>
-    </div>
-    <div class="price-tag col-6 col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <div class="row">
-            <div class="col">
-              <div *ngIf="item.amount > 0; else itemUnavailable">
-                <div *ngIf="isAuth" class="row">
-                  <div class="col-12 text-center">
-                    <button
-                      mat-raised-button
-                      color="primary"
-                      (click)="onAddToCart()"
-                    >
-                      Add do cart
-                    </button>
+    <div class="row">
+      <div
+        class="col-6 col-lg-4 d-flex align-items-center justify-content-center"
+      >
+        <img
+          id="product-photo"
+          src="{{ item.photo }}"
+          class="col-12"
+          alt="{{ item.name }}"
+        />
+      </div>
+      <div
+        class="col-12 col-lg-5 d-flex align-items-center justify-content-center"
+      >
+        <table
+          class="table short-specification"
+          [innerHTML]="item.short_specification | safe: 'html'"
+        ></table>
+      </div>
+      <div class="price-tag col-6 col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col">
+                <div *ngIf="item.amount > 0; else itemUnavailable">
+                  <div *ngIf="isAuth" class="row">
+                    <div class="col-12 text-center">
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        (click)="onAddToCart()"
+                      >
+                        Add do cart
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="!isAuth">
+                    <div class="col-12 text-center">
+                      <button mat-raised-button color="primary" disabled>
+                        Add do cart
+                      </button>
+                    </div>
+                    <div class="col-12 text-center">
+                      <span style="font-size: 0.8rem;"
+                        >Sign in to add to cart</span
+                      >
+                    </div>
                   </div>
                 </div>
-                <div class="row" *ngIf="!isAuth">
-                  <div class="col-12 text-center">
-                    <button mat-raised-button color="primary" disabled>
-                      Add do cart
-                    </button>
+                <ng-template #itemUnavailable>
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      Item currently unavailable
+                    </div>
                   </div>
-                  <div class="col-12 text-center">
-                    <span style="font-size: 0.8rem;"
-                      >Sign in to add to cart</span
-                    >
-                  </div>
-                </div>
+                </ng-template>
               </div>
-              <ng-template #itemUnavailable>
-                <div class="row">
-                  <div class="col-12 text-center">
-                    Item currently unavailable
-                  </div>
-                </div>
-              </ng-template>
             </div>
-          </div>
-          <div class="row">
-            <div class="col text-center">
-              <span class="price">{{ item.price.toFixed(2) }} USD</span>
+            <div class="row">
+              <div class="col text-center">
+                <span class="price">{{ item.price.toFixed(2) }} USD</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <h3 class="header">
-        Description
-      </h3>
-      <p>
-        {{ item.description }}
-      </p>
-      <h3 class="header">
-        Specification
-      </h3>
-      <table
-        class="table table-striped"
-        [innerHTML]="item.specification | safe: 'html'"
-      ></table>
+    <div class="row">
+      <div class="col-12">
+        <h3 class="header">
+          Description
+        </h3>
+        <p>
+          {{ item.description }}
+        </p>
+        <h3 class="header">
+          Specification
+        </h3>
+        <table
+          class="table table-striped"
+          [innerHTML]="item.specification | safe: 'html'"
+        ></table>
+      </div>
     </div>
   </div>
+  <app-comment-section [comments]="comments" [item]="item"></app-comment-section>
 </div>
-<app-comment-section [comments]="comments" [item]="item"></app-comment-section>
