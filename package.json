@@ -1,6 +1,10 @@
 {
   "name": "silicon-store-frontend",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KaZiUpl/silicon-store-frontend.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
