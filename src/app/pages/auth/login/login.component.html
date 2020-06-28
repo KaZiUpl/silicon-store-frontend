@@ -24,8 +24,11 @@
             formControlName="email"
           />
           <mat-error *ngIf="loginForm.get('email').hasError('required')"
-          >This field is required</mat-error
-        >
+            >This field is required</mat-error
+          >
+          <mat-error *ngIf="loginForm.get('email').hasError('email')"
+            >Incorrect email address</mat-error
+          >
         </mat-form-field>
       </div>
     </div>
@@ -40,8 +43,8 @@
             formControlName="password"
           />
           <mat-error *ngIf="loginForm.get('password').hasError('required')"
-          >This field is required</mat-error
-        >
+            >This field is required</mat-error
+          >
           <button
             type="button"
             mat-icon-button
